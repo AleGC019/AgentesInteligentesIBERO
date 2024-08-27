@@ -12,9 +12,7 @@ El objetivo del proyecto es resolver el puzzle utilizando diferentes técnicas d
 
 ## Descripción del Problema
 
-El problema consiste en un puzzle de 3x3 donde se deben mover las piezas (numeradas del 1 al 8) dentro de la matriz para llegar
-
-a una configuración específica (generalmente en orden numérico) desde una disposición inicial desordenada.
+El problema consiste en un puzzle de 3x3 donde se deben mover las piezas (numeradas del 1 al 8) dentro de la matriz para llegar a una configuración específica (generalmente en orden numérico) desde una disposición inicial desordenada.
 
 ## Tecnologías Utilizadas
 
