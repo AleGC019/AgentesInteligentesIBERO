@@ -1,0 +1,10 @@
+{
+    "files.autoSave": "afterDelay",
+    "launch": {
+        
+        "configurations": [],
+        "compounds": []
+    },
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoImportCompletions": true
+}
