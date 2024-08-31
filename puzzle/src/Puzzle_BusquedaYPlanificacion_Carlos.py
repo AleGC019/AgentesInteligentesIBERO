@@ -38,6 +38,18 @@ def manhattan_distance(state):
     return distance
 
 
+def find_blank(state):
+    """
+    Encuentra la posición del espacio vacío (0) en el estado del puzzle.
+
+    :param state: Estado actual del puzzle representado como una lista de listas.
+    :return: Tupla con las coordenadas (fila, columna) del espacio vacío.
+    """
+    for i in range(3):  # Recorremos las filas del estado.
+        for j in range(3):  # Recorremos las columnas del estado.
+            if state[i][j] == 0:  # Verifica si el valor en la posición actual es el espacio vacío.
+                return i, j  # Retorna las coordenadas del espacio vacío.
+
 def get_neighbors(state):
     """
     Genera todos los posibles estados vecinos del estado actual moviendo el espacio vacío.
@@ -59,18 +71,6 @@ def get_neighbors(state):
 
     return neighbors
 
-
-def find_blank(state):
-    """
-    Encuentra la posición del espacio vacío (0) en el estado del puzzle.
-
-    :param state: Estado actual del puzzle representado como una lista de listas.
-    :return: Tupla con las coordenadas (fila, columna) del espacio vacío.
-    """
-    for i in range(3):  # Recorremos las filas del estado.
-        for j in range(3):  # Recorremos las columnas del estado.
-            if state[i][j] == 0:  # Verifica si el valor en la posición actual es el espacio vacío.
-                return i, j  # Retorna las coordenadas del espacio vacío.
 
 
 def a_star(initial_state):
