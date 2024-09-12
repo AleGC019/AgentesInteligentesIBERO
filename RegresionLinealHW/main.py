@@ -67,8 +67,8 @@ model.fit(X_train, y_train)
 # Realizar predicciones
 y_pred = model.predict(X_test)
 
-# Asegurarse de que los valores predichos no sean negativos
-y_pred = np.maximum(y_pred, 0)
+# Asegurarse de que los valores predichos no sean negativos usando el valor absoluto
+y_pred = np.abs(y_pred)
 
 # Calcular las métricas de evaluación
 mse = mean_squared_error(y_test, y_pred)
