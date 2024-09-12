@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Ridge
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.preprocessing import StandardScaler
@@ -24,6 +24,23 @@ df['price'] = pd.to_numeric(df['price'], errors='coerce')
 # Manejar valores faltantes en la columna 'price'
 df = df.dropna(subset=['price'])
 
+# Limpiar los nombres de las marcas de automóviles
+def clean_car_name(name):
+    return name.split(' ')[0].lower()
+
+df['CarName'] = df['CarName'].apply(clean_car_name)
+
+# Diccionario de corrección de nombres de marcas
+corrections = {
+    'maxda': 'mazda',
+    'porcshce': 'porsche',
+    'toyouta': 'toyota',
+    'vokswagen': 'volkswagen',
+    'vw': 'volkswagen'
+}
+
+df['CarName'] = df['CarName'].replace(corrections)
+
 # Seleccionar las columnas más relevantes para predecir el precio
 relevant_columns = [
     'wheelbase', 'carlength', 'carwidth', 'curbweight', 'enginesize',
@@ -43,12 +60,15 @@ X_scaled = scaler.fit_transform(X)
 # Dividir los datos en conjuntos de entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
-# Entrenar el modelo de regresión lineal
-model = LinearRegression()
+# Entrenar el modelo de regresión Ridge
+model = Ridge(alpha=1.0)
 model.fit(X_train, y_train)
 
 # Realizar predicciones
 y_pred = model.predict(X_test)
+
+# Asegurarse de que los valores predichos no sean negativos
+y_pred = np.maximum(y_pred, 0)
 
 # Calcular las métricas de evaluación
 mse = mean_squared_error(y_test, y_pred)
