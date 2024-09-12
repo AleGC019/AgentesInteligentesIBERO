@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.linear_model import Ridge
+from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.preprocessing import StandardScaler
@@ -23,6 +23,7 @@ df['price'] = pd.to_numeric(df['price'], errors='coerce')
 
 # Manejar valores faltantes en la columna 'price'
 df = df.dropna(subset=['price'])
+df = df.dropna(subset=['car_ID'])
 
 # Limpiar los nombres de las marcas de automóviles
 def clean_car_name(name):
@@ -60,15 +61,12 @@ X_scaled = scaler.fit_transform(X)
 # Dividir los datos en conjuntos de entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
-# Entrenar el modelo de regresión Ridge
-model = Ridge(alpha=1.0)
+# Entrenar el modelo de regresión lineal con restricciones no negativas
+model = LinearRegression(positive=True)
 model.fit(X_train, y_train)
 
 # Realizar predicciones
 y_pred = model.predict(X_test)
-
-# Asegurarse de que los valores predichos no sean negativos usando el valor absoluto
-y_pred = np.abs(y_pred)
 
 # Calcular las métricas de evaluación
 mse = mean_squared_error(y_test, y_pred)
