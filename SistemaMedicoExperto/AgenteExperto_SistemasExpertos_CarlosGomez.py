@@ -1,3 +1,11 @@
+# Carlos Alejandro Gómez Campos
+# 3103131
+# IDE utilizada: PyCharm
+# Versión de Python utilizada: 3.9
+# Repositorio: https://github.com/AleGC019/AgentesInteligentesIBERO/tree/AleGC
+# Rama: AleGC
+# Fecha: 2024-09-02
+
 class Diagnostico:
     def __init__(self, medico, paciente):
         self.medico = medico
@@ -25,7 +33,7 @@ class Diagnostico:
     def calcular_puntaje(self, enfermedad):
         coincidencias = sum(1 for sintoma in enfermedad.sintomas if sintoma in self.paciente.sintomas)
         sintomas_faltantes = len(enfermedad.sintomas) - coincidencias
-        puntaje = coincidencias - sintomas_faltantes * 0.5  # Penaliza síntomas faltantes
+        puntaje = coincidencias - sintomas_faltantes * 0.5
         return puntaje
 
 
