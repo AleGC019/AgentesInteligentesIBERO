@@ -53,14 +53,16 @@ y_pred_dec_tree = decision_tree.predict(X_train)
 y_pred_rand_forest = random_forest.predict(X_train)
 
 # Mostrar resultados
+print('\n\n')
 print("Logistic Regression Accuracy:", accuracy_score(y_train, y_pred_log_reg))
-print("Logistic Regression Report:\n", classification_report(y_train, y_pred_log_reg))
-
+print("Logistic Regression Report:\n\n", classification_report(y_train, y_pred_log_reg))
+print('\n\n')
 print("Decision Tree Accuracy:", accuracy_score(y_train, y_pred_dec_tree))
-print("Decision Tree Report:\n", classification_report(y_train, y_pred_dec_tree))
-
+print("Decision Tree Report:\n\n", classification_report(y_train, y_pred_dec_tree))
+print('\n\n')
 print("Random Forest Accuracy:", accuracy_score(y_train, y_pred_rand_forest))
-print("Random Forest Report:\n", classification_report(y_train, y_pred_rand_forest))
+print("Random Forest Report:\n\n", classification_report(y_train, y_pred_rand_forest))
+print('\n')
 
 # Predicciones en el conjunto de prueba
 test_pred_log_reg = log_reg.predict(test_data)
@@ -74,6 +76,25 @@ test_predictions = pd.DataFrame({
     'Random Forest': test_pred_rand_forest
 })
 
-# Mostrar las predicciones
-print(test_predictions.head())
+# Conteo de sobrevivientes y no sobrevivientes por cada modelo
+log_reg_counts = test_predictions['Logistic Regression'].value_counts()
+dec_tree_counts = test_predictions['Decision Tree'].value_counts()
+rand_forest_counts = test_predictions['Random Forest'].value_counts()
 
+print("Logistic Regression Counts:\n")
+print("- No sobrevivientes:", log_reg_counts.get(0, 0))
+print("- Sobrevivientes:", log_reg_counts.get(1, 0))
+print('\n')
+
+print("Decision Tree Counts:\n")
+print("- No sobrevivientes:", dec_tree_counts.get(0, 0))
+print("- Sobrevivientes:", dec_tree_counts.get(1, 0))
+print('\n')
+
+print("Random Forest Counts:\n")
+print("- No sobrevivientes:", rand_forest_counts.get(0, 0))
+print("- Sobrevivientes:", rand_forest_counts.get(1, 0))
+print('\n')
+
+#Teclada de espera para finalizar el programa
+input("Presione Enter para finalizar...")
