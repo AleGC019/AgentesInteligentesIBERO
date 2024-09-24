@@ -1,8 +1,6 @@
-# Puzzle de una Matriz 3x3 - Agentes Inteligentes
+# 🤖 Intelligent Agents Activities Repository
 
-Este repositorio contiene la solución al ejercicio del "puzzle de una matriz 3x3" para la materia de Agentes Inteligentes.
-
-El objetivo del proyecto es resolver el puzzle utilizando diferentes técnicas de búsqueda y optimización en Python.
+Welcome to the **Intelligent Agents Activities** repository! This repository contains various activities and projects related to the study and implementation of intelligent agents. Below, you'll find a detailed description of the different activities and projects included in this repository.
 
 ## Integrandes
 
@@ -10,9 +8,45 @@ El objetivo del proyecto es resolver el puzzle utilizando diferentes técnicas d
   
 - Fernando Andres Eguizabal Medrano / 3103142
 
-## Descripción del Problema
+## 📚 Table of Contents
+- [Introduction](#introduction)
+- [Activities](#activities)
+  - [Data Preprocessing](#data-preprocessing)
+  - [Model Training](#model-training)
+  - [Model Evaluation](#model-evaluation)
+  - [Predictions](#predictions)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Integrandes](#integrandes)
 
-El problema consiste en un puzzle de 3x3 donde se deben mover las piezas (numeradas del 1 al 8) dentro de la matriz para llegar a una configuración específica (generalmente en orden numérico) desde una disposición inicial desordenada.
+## 🌟 Introduction
+Intelligent agents are autonomous entities that observe and act upon an environment to achieve specific goals. This repository showcases various activities and projects that demonstrate the capabilities and applications of intelligent agents in different scenarios.
+
+## 🛠️ Activities
+
+### 1. Data Preprocessing
+In this activity, we focus on preparing the data for training intelligent agents. This includes:
+- Handling missing values
+- Encoding categorical variables
+- Normalizing and scaling features
+
+### 2. Model Training
+Here, we train different machine learning models to act as intelligent agents. The models included are:
+- Logistic Regression
+- Decision Tree Classifier
+- Random Forest Classifier
+
+### 3. Model Evaluation
+This activity involves evaluating the performance of the trained models using various metrics such as:
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+
+### 4. Predictions
+In this section, we use the trained models to make predictions on new data and analyze the results. We also count the number of survivors and non-survivors predicted by each model.
 
 ## Tecnologías Utilizadas
 
