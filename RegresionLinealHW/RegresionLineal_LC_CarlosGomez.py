@@ -1,56 +1,56 @@
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
-def load_and_preprocess_data(file_path):
-    # Cargar el dataset
-    df = pd.read_csv(file_path, header=None)
-    df.columns = ['car_ID', 'symboling', 'CarName', 'fueltype', 'aspiration', 'doornumber', 'carbody', 'drivewheel',
-                  'enginelocation', 'wheelbase', 'carlength', 'carwidth', 'carheight', 'curbweight', 'enginetype',
-                  'cylindernumber', 'enginesize', 'fuelsystem', 'boreratio', 'stroke', 'compressionratio', 'horsepower',
-                  'peakrpm', 'citympg', 'highwaympg', 'price']
+# Cargar el dataset
+df = pd.read_csv('CarPrice_Assignment.csv', header=None)
+df.columns = ['car_ID', 'symboling', 'CarName', 'fueltype', 'aspiration', 'doornumber', 'carbody', 'drivewheel',
+              'enginelocation', 'wheelbase', 'carlength', 'carwidth', 'carheight', 'curbweight', 'enginetype',
+              'cylindernumber', 'enginesize', 'fuelsystem', 'boreratio', 'stroke', 'compressionratio', 'horsepower',
+              'peakrpm', 'citympg', 'highwaympg', 'price']
 
-    # Asegurarse de que la columna 'price' contiene solo valores numéricos
-    df['price'] = pd.to_numeric(df['price'], errors='coerce')
+# Verificar las columnas del DataFrame
+print(df.columns)
+print('\n\n')
 
-    # Manejar valores faltantes en la columna 'price'
-    df = df.dropna(subset=['price'])
+# Asegurarse de que la columna 'price' contiene solo valores numéricos
+df['price'] = pd.to_numeric(df['price'], errors='coerce')
 
-    # Limpiar los nombres de las marcas de automóviles
-    def clean_car_name(name):
-        return name.split(' ')[0].lower()
+# Manejar valores faltantes en la columna 'price'
+df = df.dropna(subset=['price'])
 
-    df['CarName'] = df['CarName'].apply(clean_car_name)
+# Limpiar los nombres de las marcas de automóviles
+def clean_car_name(name):
+    return name.split(' ')[0].lower()
 
-    # Diccionario de corrección de nombres de marcas
-    corrections = {
-        'maxda': 'mazda',
-        'porcshce': 'porsche',
-        'toyouta': 'toyota',
-        'vokswagen': 'volkswagen',
-        'vw': 'volkswagen'
-    }
+df['CarName'] = df['CarName'].apply(clean_car_name)
 
-    df['CarName'] = df['CarName'].replace(corrections)
+# Diccionario de corrección de nombres de marcas
+corrections = {
+    'maxda': 'mazda',
+    'porcshce': 'porsche',
+    'toyouta': 'toyota',
+    'vokswagen': 'volkswagen',
+    'vw': 'volkswagen'
+}
 
-    # Columnas categóricas
-    categorical_columns = ['CarName', 'fueltype', 'aspiration', 'doornumber', 'carbody', 'drivewheel', 'enginelocation',
-                           'enginetype', 'cylindernumber', 'fuelsystem']
+df['CarName'] = df['CarName'].replace(corrections)
 
-    # Aplicar LabelEncoder a las columnas categóricas
-    label_encoders = {}
-    for col in categorical_columns:
-        le = LabelEncoder()
-        df[col] = le.fit_transform(df[col])
-        label_encoders[col] = le
+# Columnas categóricas
+categorical_columns = ['CarName', 'fueltype', 'aspiration', 'doornumber', 'carbody', 'drivewheel', 'enginelocation',
+                       'enginetype', 'cylindernumber', 'fuelsystem']
 
-    return df
-
-# Cargar y preprocesar los datos
-df = load_and_preprocess_data('CarPrice_Assignment.csv')
+# Aplicar LabelEncoder a las columnas categóricas
+label_encoders = {}
+for col in categorical_columns:
+    le = LabelEncoder()
+    df[col] = le.fit_transform(df[col])
+    label_encoders[col] = le
 
 # Separar características (X) y variable objetivo (y)
 X = df.drop(['price'], axis=1)
