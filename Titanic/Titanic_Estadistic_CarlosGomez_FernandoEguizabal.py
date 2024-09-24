@@ -1,8 +1,9 @@
 import pandas as pd
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, mean_squared_error, r2_score, roc_auc_score, roc_curve
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt
 
 # Cargar los datos
 train_data = pd.read_csv('train.csv')
@@ -56,13 +57,49 @@ y_pred_rand_forest = random_forest.predict(X_train)
 print('\n\n')
 print("Logistic Regression Accuracy:", accuracy_score(y_train, y_pred_log_reg))
 print("Logistic Regression Report:\n\n", classification_report(y_train, y_pred_log_reg))
+print("Logistic Regression Confusion Matrix:\n", confusion_matrix(y_train, y_pred_log_reg))
+print("Logistic Regression MSE:", mean_squared_error(y_train, y_pred_log_reg))
+print("Logistic Regression R2:", r2_score(y_train, y_pred_log_reg))
+print("Logistic Regression ROC AUC:", roc_auc_score(y_train, log_reg.predict_proba(X_train)[:, 1]))
 print('\n\n')
+
 print("Decision Tree Accuracy:", accuracy_score(y_train, y_pred_dec_tree))
 print("Decision Tree Report:\n\n", classification_report(y_train, y_pred_dec_tree))
+print("Decision Tree Confusion Matrix:\n", confusion_matrix(y_train, y_pred_dec_tree))
+print("Decision Tree MSE:", mean_squared_error(y_train, y_pred_dec_tree))
+print("Decision Tree R2:", r2_score(y_train, y_pred_dec_tree))
+print("Decision Tree ROC AUC:", roc_auc_score(y_train, decision_tree.predict_proba(X_train)[:, 1]))
 print('\n\n')
+
 print("Random Forest Accuracy:", accuracy_score(y_train, y_pred_rand_forest))
 print("Random Forest Report:\n\n", classification_report(y_train, y_pred_rand_forest))
+print("Random Forest Confusion Matrix:\n", confusion_matrix(y_train, y_pred_rand_forest))
+print("Random Forest MSE:", mean_squared_error(y_train, y_pred_rand_forest))
+print("Random Forest R2:", r2_score(y_train, y_pred_rand_forest))
+print("Random Forest ROC AUC:", roc_auc_score(y_train, random_forest.predict_proba(X_train)[:, 1]))
 print('\n')
+
+# Graficar ROC y AUC
+models = {
+    "Logistic Regression": log_reg,
+    "Decision Tree": decision_tree,
+    "Random Forest": random_forest
+}
+
+plt.figure(figsize=(10, 8))
+for model_name, model in models.items():
+    y_pred_proba = model.predict_proba(X_train)[:, 1]
+    fpr, tpr, _ = roc_curve(y_train, y_pred_proba)
+    plt.plot(fpr, tpr, label=f'{model_name} (AUC = {roc_auc_score(y_train, y_pred_proba):.2f})')
+
+plt.plot([0, 1], [0, 1], 'k--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.legend(loc='lower right')
+plt.show()
 
 # Predicciones en el conjunto de prueba
 test_pred_log_reg = log_reg.predict(test_data)
@@ -96,5 +133,5 @@ print("- No sobrevivientes:", rand_forest_counts.get(0, 0))
 print("- Sobrevivientes:", rand_forest_counts.get(1, 0))
 print('\n')
 
-#Teclada de espera para finalizar el programa
+# Teclada de espera para finalizar el programa
 input("Presione Enter para finalizar...")
