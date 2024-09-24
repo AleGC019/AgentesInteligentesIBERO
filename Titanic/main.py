@@ -1,5 +1,4 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -16,8 +15,10 @@ test_data['Age'] = test_data['Age'].fillna(test_data['Age'].median())
 
 # Rellenar los valores faltantes en 'Embarked' con el valor más frecuente
 train_data['Embarked'] = train_data['Embarked'].fillna(train_data['Embarked'].mode()[0])
+test_data['Embarked'] = test_data['Embarked'].fillna(test_data['Embarked'].mode()[0])
 
 # Rellenar el único valor faltante en 'Fare' en el conjunto de test con la mediana
+train_data['Fare'] = train_data['Fare'].fillna(train_data['Fare'].median())
 test_data['Fare'] = test_data['Fare'].fillna(test_data['Fare'].median())
 
 # Eliminar la columna 'Cabin' porque tiene demasiados valores faltantes
