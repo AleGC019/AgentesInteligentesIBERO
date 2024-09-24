@@ -80,6 +80,7 @@ def a_star(initial_state):
     :param initial_state: Estado inicial del puzzle representado como una lista de listas.
     :return: Tupla con el camino a la solución (si se encuentra), el número de nodos explorados,
             el factor de ramificación máximo y la profundidad de la solución.
+
     """
     open_set = [(0, initial_state)]  # Cola de prioridad con el estado inicial. Se usa una tupla (costo total, estado).
     came_from = {}  # Diccionario para rastrear el camino recorrido.
